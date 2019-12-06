@@ -11,4 +11,5 @@ with picamera.PiCamera() as camera:
     camera.stop_preview()
     camera.close()
 
+#将H.264文档转换为MP4
 os.system("sudo MP4Box -add foo.h264 foo.mp4 0>null 1>null 2>null")

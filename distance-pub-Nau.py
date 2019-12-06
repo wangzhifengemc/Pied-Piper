@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import RPi.GPIO as GPIO
 import time
+#import json
 import paho.mqtt.client as mqtt
 
 # initialize GPIO
@@ -13,7 +14,7 @@ print("creating new instance")
 client = mqtt.Client("pub5") #create new instance
 ID="01"
 print("connecting to broker")
-#client.connect(broker_address) #connect to broker
+client.connect(broker_address) #connect to broker
 
 def checkdist():
         GPIO.output(16, GPIO.HIGH)
@@ -31,10 +32,14 @@ def checkdist():
 def loop():
 	while True:
             d = checkdist()
-            df = "[{ID:%s,Distance,%0.2f}]" %(ID,d)
-#            print 'Distance: ' + df
+            t3 = time.strftime("%-m/%-d/%Y %H:%M:%S",time.localtime())
+#            df = "ID:%s,Distance,%0.2f" %(ID,d)
+            df = "{\"id\":\"%s\",\"time\":\"%s\",\"value\":\"%0.2f\"}" %(ID,t3,d)
             print df
-#            client.publish("Wzf001",df)
+#            print 'Distance: ' + df
+#            print json.dumps(df)
+#            client.publish("Wzf001",json.dumps(df))
+            client.publish("Wzf001",df)
             time.sleep(1)
 
 if __name__ == '__main__':
