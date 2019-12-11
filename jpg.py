@@ -13,7 +13,7 @@ with picamera.PiCamera() as camera:
         time.sleep(2)
         camera.capture('foo.jpg')
         camera.stop_preview()
-        print "ok"
+#        print "ok"
     finally:
-        print "ok1"
+#        print "ok1"
         camera.close()
