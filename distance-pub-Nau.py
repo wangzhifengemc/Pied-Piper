@@ -9,12 +9,14 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(16,GPIO.OUT,initial=GPIO.LOW)
 GPIO.setup(18,GPIO.IN)
 
-broker_address="192.168.1.191"
+broker_address="192.168.43.246"
+broker_port="443"
+broker_topic="FIDELITY.ADS"
 print("creating new instance")
 client = mqtt.Client("pub5") #create new instance
-ID="01"
+ID="3"
 print("connecting to broker")
-client.connect(broker_address) #connect to broker
+client.connect(broker_address, broker_port) #connect to broker
 
 def checkdist():
         GPIO.output(16, GPIO.HIGH)
@@ -39,7 +41,7 @@ def loop():
 #            print 'Distance: ' + df
 #            print json.dumps(df)
 #            client.publish("Wzf001",json.dumps(df))
-            client.publish("Wzf001",df)
+            client.publish(broker_topic,df)
             time.sleep(1)
 
 if __name__ == '__main__':
